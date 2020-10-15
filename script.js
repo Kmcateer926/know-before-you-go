@@ -10,3 +10,14 @@ $(document).ready(function () {
     console.log(response);
   });
 });
+
+
+
+var queryURL =
+    "https://api.teleport.org/api/urban_areas/slug:san-francisco-bay-area/scores/";
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function (response) {
+    console.log(response);
+  });
