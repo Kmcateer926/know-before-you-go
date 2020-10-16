@@ -24,8 +24,8 @@ h1 {
 
 .background{
     background-repeat: no-repeat;
-    background-position: right top;
-    background-size: 1500px 800px;
+    
+    background-size: cover;
 } 
 
 .card {
