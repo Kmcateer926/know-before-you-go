@@ -1,4 +1,4 @@
-var countryCode = [
+var countryCodeArray = [
   "gb",
   "at",
   "au",
@@ -29,7 +29,7 @@ var apiBase = "https://api.teleport.org/api/cities/?search="
 var querySecondURL = ""
 var urbanSlugAPI = ""
 var teleportURL = "" 
-  
+var countryCode = ""
   
   function categorySelect() {
     var category = $("#inputGroupSelect04").val();
@@ -64,6 +64,10 @@ var teleportURL = ""
     }).done(function(response){
       console.log(response);
       console.log(response._links["city:urban_area"].href);
+      //Country Code
+      var countryURL = response._links["city:country"].href;
+      countryCode = countryURL.substr(-3,2);
+      console.log(countryCode)
       urbanSlugAPI = response._links["city:urban_area"].href;
       console.log(urbanSlugAPI);
       teleportSite();
