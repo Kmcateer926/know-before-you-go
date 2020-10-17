@@ -2,7 +2,23 @@ console.log("Hello World");
 $(document).ready(function () {
   console.log("ready");
 
-  $(".background").css("background-image", "url('images/City.jpg')");
+  var images = ["/City.jpg", "/mountain.jpg", "/small-city.jpeg", "/smalltowns.jpg"];
+
+  $(function () {
+    var i = 0;
+    $(".background").css("background-image", "url(images/" + images[i] + ")");
+    setInterval(function () {
+      // for (i = 0; i < images.length; i++)
+        i++;
+        if (i == images.length) {
+            i = 0;
+        }
+        $(".background").fadeOut("slow", function () {
+            $(this).css("background-image", "url(images/" + images[i] + ")");
+            $(this).fadeIn("slow");
+        });
+    }, 5000);
+});
   
   var queryURL =
     "https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=be3ea934&app_key=92b7a058356afbbaa6b1cf90c7bae1c1&results_per_page=20&what=javascript%20developer&content-type=application/json";
