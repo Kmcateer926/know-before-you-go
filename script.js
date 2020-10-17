@@ -24,6 +24,13 @@ $(document).ready(function () {
 
   var queryURL = "";
   // "https://api.adzuna.com/v1/api/jobs/us/search/1?app_id=be3ea934&app_key=92b7a058356afbbaa6b1cf90c7bae1c1&results_per_page=20&what=" + category + "&content-type=application/json";
+  
+var apiBase = "https://api.teleport.org/api/cities/?search="
+var querySecondURL = ""
+var urbanSlugAPI = ""
+var teleportURL = "" 
+  
+  
   function categorySelect() {
     var category = $("#inputGroupSelect04").val();
     queryURL =
@@ -32,9 +39,53 @@ $(document).ready(function () {
       "&content-type=application/json";
     console.log(queryURL);
   }
+
+  function geoIdentify(){
+    var searchCity = $("#inputGroupSelect03").val()
+    console.log(searchCity);
+  
+    
+    $.ajax({
+      url:apiBase + searchCity,
+      method: "GET"
+    }).done(function(response) {
+      console.log(response);
+      querySecondURL = response._embedded["city:search-results"][0]._links["city:item"].href;
+      // var embedBody = '<a class="teleport-widget-link" href="https://teleport.org/cities/aarhus/">Life quality score - Aarhus</a><script async class="teleport-widget-script" data-url="https://teleport.org/cities/aarhus/widget/scores/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>';
+      // $("#life-quality").append(embedBody)
+      urbanSlug();
+      
+  });
+  };
+  function urbanSlug(){
+    $.ajax({
+      url: querySecondURL,
+      method: "GET"
+    }).done(function(response){
+      console.log(response);
+      console.log(response._links["city:urban_area"].href);
+      urbanSlugAPI = response._links["city:urban_area"].href;
+      console.log(urbanSlugAPI);
+      teleportSite();
+      
+  });
+  };
+  
+  function teleportSite(){
+    $.ajax({
+      url: urbanSlugAPI,
+      method: "GET"
+    }).done(function(response){
+      console.log(response);
+      teleportURL = response.teleport_city_url
+      // qualityofLife();
+    });
+  }
+  
   $("#submit").on("click", function (event) {
     event.preventDefault();
     categorySelect();
+    geoIdentify();
     var category = $("#inputGroupSelect04").val();
     console.log(queryURL);
     $.ajax({
@@ -55,11 +106,7 @@ $(document).ready(function () {
       $(".location").text("location: " + location);
     });
   });
-});
 
-console.log("Hello World");
-$(document).ready(function () {
-  console.log("ready");
 
   var images = [
     "/City.jpg",
@@ -92,13 +139,4 @@ $(document).ready(function () {
   //   }).then(function (response) {
   //     console.log(response);
   //   });
-});
-
-var queryURL =
-  "https://api.teleport.org/api/urban_areas/slug:san-francisco-bay-area/scores/";
-$.ajax({
-  url: queryURL,
-  method: "GET",
-}).then(function (response) {
-  console.log(response);
 });
