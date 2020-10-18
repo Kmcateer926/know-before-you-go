@@ -37,7 +37,7 @@ $(document).ready(function () {
     queryURL =
       "https://api.adzuna.com/v1/api/jobs/" +
       countryCode +
-      "/search/1?app_id=be3ea934&app_key=92b7a058356afbbaa6b1cf90c7bae1c1&location0=" + selectedCity + "&results_per_page=20&what=" +
+      "/search/1?app_id=be3ea934&app_key=92b7a058356afbbaa6b1cf90c7bae1c1&where=" + selectedCity + "&results_per_page=20&what=" +
       category; 
     //   "&content-type=application/json";
     console.log(queryURL);
