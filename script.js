@@ -21,8 +21,8 @@
 console.log("Hello World");
 $(document).ready(function () {
   console.log("ready");
+  
 
- 
     // $(".background").css("background-image", "url('City.jpg')");
  
 
@@ -35,7 +35,15 @@ $(document).ready(function () {
   var teleportURL = "";
   var countryCode = "";
   var selectedCity = "";
+  
+  
+  
+  //On Page load, website hides the cards
+  function onLoad(){
+    $(".post-search").hide();
+  }
 
+  onLoad()
   function categorySelect() {
     var category = $("#inputGroupSelect04").val();
     queryURL =
@@ -114,7 +122,6 @@ $(document).ready(function () {
 
   $("#submit").on("click", function (event) {
     event.preventDefault();
-    $(".card-body").hide();
     geoIdentify();
     //   categorySelect();
   });
