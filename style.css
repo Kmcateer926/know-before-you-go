@@ -25,6 +25,7 @@ h1 {
 .background{
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
   
 } 
 
@@ -36,4 +37,8 @@ h1 {
     background-color: rgb(33, 158, 199);
     color: white;
     font-family: 'Amatic SC', cursive;
+}
+
+.img {
+    position: absolute;
 }
