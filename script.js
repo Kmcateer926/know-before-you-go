@@ -22,7 +22,9 @@ console.log("Hello World");
 $(document).ready(function () {
   console.log("ready");
 
-  $(".background").css("background-image", "url('City.jpg')");
+ 
+    // $(".background").css("background-image", "url('City.jpg')");
+ 
 
   var queryURL = "";
   // "https://api.adzuna.com/v1/api/jobs/us/search/1?app_id=be3ea934&app_key=92b7a058356afbbaa6b1cf90c7bae1c1&results_per_page=20&what=" + category + "&content-type=application/json";
@@ -112,6 +114,7 @@ $(document).ready(function () {
 
   $("#submit").on("click", function (event) {
     event.preventDefault();
+    $(".card-body").hide();
     geoIdentify();
     //   categorySelect();
   });

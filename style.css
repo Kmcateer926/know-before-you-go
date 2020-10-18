@@ -36,9 +36,9 @@ h1 {
     font-family: 'Amatic SC', cursive;
 }
 
-.img {
+/* .img {
     position: absolute;
-}
+} */
 
 .card-widget {
     background-color: lightblue;
@@ -46,9 +46,8 @@ h1 {
     margin-top: 25px;
 }
 
-body {
-    /* background-image: url("images/City.jpg"); */
+ body {
+    background-image: url("images/City.jpg"); 
     background-repeat: no-repeat;
-    background-size: 100%;
     background-size: cover;
-}
+} 
