@@ -1,34 +1,9 @@
-// var countryCodeArray = [
-//     "gb",
-//     "at",
-//     "au",
-//     "br",
-//     "ca",
-//     "de",
-//     "fr",
-//     "in",
-//     "it",
-//     "nl",
-//     "nz",
-//     "pl",
-//     "ru",
-//     "sg",
-//     "us",
-//     "za",
-//   ];
-// var categorySelect = $("#inputGroupSelect04").val();
-
 console.log("Hello World");
 $(document).ready(function () {
   console.log("ready");
   
-
-    // $(".background").css("background-image", "url('City.jpg')");
- 
-
+ // JS GLOBAL VARIABLES
   var queryURL = "";
-  // "https://api.adzuna.com/v1/api/jobs/us/search/1?app_id=be3ea934&app_key=92b7a058356afbbaa6b1cf90c7bae1c1&results_per_page=20&what=" + category + "&content-type=application/json";
-
   var apiBase = "https://api.teleport.org/api/cities/?search=";
   var querySecondURL = "";
   var urbanSlugAPI = "";
@@ -43,7 +18,7 @@ $(document).ready(function () {
   var climateEmbedBody =""
   
   
-  //On Page load, website hides the cards
+  //ON PAGE LOAD, HIDES CARDS
   function onLoad(){
     $(".post-search").hide();
   }
@@ -66,29 +41,25 @@ $(document).ready(function () {
     }
       }
       generateCities();
-     
+    
+      // AJAX CALLS FOR ADZUNA
   function categorySelect() {
+    $("#job-list").empty();
+   // USER INPUT FOR JOBS
     var category = $("#inputGroupSelect04").val();
     queryURL =
       "https://api.adzuna.com/v1/api/jobs/" +
       countryCode +
       "/search/1?app_id=be3ea934&app_key=92b7a058356afbbaa6b1cf90c7bae1c1&where=" + selectedCity + "&results_per_page=20&what=" +
       category; 
-    //   "&content-type=application/json";
-    console.log(queryURL);
-    var category = $("#inputGroupSelect04").val();
-    console.log(queryURL);
+   
+    // var category = $("#inputGroupSelect04").val();
+  
     $.ajax({
       url: queryURL,
       method: "GET",
     }).then(function (response) {
-      // console.log(response);
-      console.log("This is API response: ", response.results);
-      // console.log(response.results[0].category);
-      // console.log(response.results[0].company);
-      // console.log(response.results[0].location);
-
-      // console.log("category ", category);
+        console.log("This is API response: ", response.results);
 
       // WILL LOOP THROUGH THE JOB OPTIONS
       for (var i = 0; i < response.results.length; i++){
@@ -103,15 +74,13 @@ $(document).ready(function () {
         </div>
       </div>`
       var cardEL = $(card);
+     
       $('#job-list').append(cardEL);
       };
-      // JSON.stringify(response.category);
-      // $(".description").text($(".category").text("category: " + category));
-      // $(".company").text("company: " + response.results[i].company);
-      // $(".location").text("location: " + location);
     });
   }
 
+  // AJAX CALL FOR CITY AND RETURNS FUTURE API URL
   function geoIdentify() {
     var searchCity = $("#inputGroupSelect03").val();
     console.log(searchCity);
@@ -123,12 +92,11 @@ $(document).ready(function () {
       console.log(response);
       querySecondURL =
         response._embedded["city:search-results"][0]._links["city:item"].href;
-      // var embedBody = '<a class="teleport-widget-link" href="https://teleport.org/cities/aarhus/">Life quality score - Aarhus</a><script async class="teleport-widget-script" data-url="https://teleport.org/cities/aarhus/widget/scores/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>';
-      // $("#life-quality").append(embedBody)
       urbanSlug();
-      // categorySelect();
     });
   }
+
+  // PULLS THE URBAN AREAS API URL FOR SPECIFIED CITY
   function urbanSlug() {
     $.ajax({
       url: querySecondURL,
@@ -136,7 +104,8 @@ $(document).ready(function () {
     }).done(function (response) {
       console.log(response);
       console.log(response._links["city:urban_area"].href);
-      //Country Code
+
+      //COUNTRY CODE GRABBED BY ADZUNA API
       var countryURL = response._links["city:country"].href;
       countryCode = countryURL.substr(-3, 2).toLowerCase();
       console.log(countryCode);
@@ -147,12 +116,15 @@ $(document).ready(function () {
     });
   }
 
+  // TELEPORT AJAX CALL
   function teleportSite() {
     $.ajax({
       url: urbanSlugAPI,
       method: "GET",
     }).then(function (response) {
       console.log(response);
+
+      // GRABS TELEPORT URL TO EMBED FOR WIDGET 
       teleportURL = response.teleport_city_url;
       qolEmbedBody = '<a class="teleport-widget-link" href="' + teleportURL +  '">Life quality score - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="' +teleportURL + 'widget/scores/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>';
       colEmbedBody = '<a class="teleport-widget-link" href="' +teleportURL + '">Cost of living - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="' + teleportURL+ 'widget/costs/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
@@ -160,16 +132,11 @@ $(document).ready(function () {
       safetyEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL +  '">Safety - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/crime/?currency=USD&citySwitcher=false" data-max-width="420" data-height="1214" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
       educationEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL +  '">Education - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/education/?currency=USD&citySwitcher=false" data-max-width="420" data-height="1214" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
       climateEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL +  '">Climate - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/weather/?currency=USD&citySwitcher=false" data-max-width="420" data-height="1214" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
-      console.log(qolEmbedBody)
-      // // return qualityOfLife();
-      // return embedBody;
       return qualityOfLife();
-      // console.log(embedBody);
-      // return $("#qol-widget").append(embedBody)
-     
     });
-    
   }
+
+  // POPULATES WIDGETS TO THE RESPECTIVE DIVS
   function qualityOfLife (){
     $("#qol-widget").empty();
     $("#qol-widget").append(qolEmbedBody);
@@ -185,42 +152,10 @@ $(document).ready(function () {
     $("#climate-widget").append(climateEmbedBody);
   }
 
+  // EVENT LISTENER FOR WHEN USER CLICK BUTTON
   $("#submit").on("click", function (event) {
     event.preventDefault();
     $(".post-search").show();
     geoIdentify();
-    //   categorySelect();
   });
-
-  // var images = [
-  //   "/City.jpg",
-  //   "/mountain.jpg",
-  //   "/small-city.jpeg",
-  //   "/smalltowns.jpg",
-  // ];
-
-  // $(function () {
-  //   var i = 0;
-  //   $(".background").css("background-image", "url(images/" + images[i] + ")");
-  //   setInterval(function () {
-  //     // for (i = 0; i < images.length; i++)
-  //     i++;
-  //     if (i == images.length) {
-  //       i = 0;
-  //     }
-  //     $(".background").fadeOut("slow", function () {
-  //       $(this).css("background-image", "url(images/" + images[i] + ")");
-  //       $(this).fadeIn("slow");
-  //     });
-  //   }, 5000);
-  // });
-
-  //   var queryURL =
-  //     "https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=be3ea934&app_key=92b7a058356afbbaa6b1cf90c7bae1c1&results_per_page=20&what=javascript%20developer&content-type=application/json";
-  //   $.ajax({
-  //     url: queryURL,
-  //     method: "GET"
-  //   }).then(function (response) {
-  //     console.log(response);
-  //   });
 });
