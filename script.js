@@ -35,7 +35,7 @@ $(document).ready(function () {
   var teleportURL = "";
   var countryCode = "";
   var selectedCity = "";
-  
+  var embedBody= ""
   
   
   //On Page load, website hides the cards
@@ -113,15 +113,27 @@ $(document).ready(function () {
     $.ajax({
       url: urbanSlugAPI,
       method: "GET",
-    }).done(function (response) {
+    }).then(function (response) {
       console.log(response);
       teleportURL = response.teleport_city_url;
-      // qualityofLife();
+      embedBody = '<a class="teleport-widget-link" href="' + teleportURL +  '">Life quality score - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="' +teleportURL + 'widget/scores/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>';
+      console.log(embedBody)
+      // // return qualityOfLife();
+      // return embedBody;
+      return qualityOfLife();
+      // console.log(embedBody);
+      // return $("#qol-widget").append(embedBody)
+     
     });
+  }
+  function qualityOfLife (){
+    $("#qol-widget").empty();
+    $("#qol-widget").append(embedBody);
   }
 
   $("#submit").on("click", function (event) {
     event.preventDefault();
+    $(".post-search").show();
     geoIdentify();
     //   categorySelect();
   });
