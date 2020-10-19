@@ -47,8 +47,26 @@ $(document).ready(function () {
   function onLoad(){
     $(".post-search").hide();
   }
-
   onLoad()
+
+  // GENERATES THE CITIES ON THE DROPDOWN
+  function generateCities(){
+    var queryURL = "https://developers.teleport.org/assets/urban_areas.json"
+    var cityArray = Object.keys(cities);
+    console.log(cityArray);
+    cityArray.sort(function(a,b){
+    if (a < b )return -1
+    else if (a === b)return 0
+    else return 1
+    })
+    
+    for (var i = 0; i < cityArray.length; i++){
+      var option = $(`<option value="${cityArray[i]}" data-reactid="${i+1}">${cityArray[i]}</option>`)
+    $("#inputGroupSelect03").append(option);
+    }
+      }
+      generateCities();
+     
   function categorySelect() {
     var category = $("#inputGroupSelect04").val();
     queryURL =
@@ -70,12 +88,27 @@ $(document).ready(function () {
       // console.log(response.results[0].company);
       // console.log(response.results[0].location);
 
-      console.log("category ", category);
-      for (var i = 0; i < response.results; i++);
-      JSON.stringify(response.category);
-      $(".description").text($(".category").text("category: " + category));
-      $(".company").text("company: " + response.results[i].company);
-      $(".location").text("location: " + location);
+      // console.log("category ", category);
+
+      // WILL LOOP THROUGH THE JOB OPTIONS
+      for (var i = 0; i < response.results.length; i++){
+        var card = `<div class="card-widget">
+        <div class="card-header" id="job-search">
+        <h2>${response.results[i].title}</h2>
+        </div>
+        <div class="card-body" id="job-list">
+        <h3>${response.results[i].company.display_name}</h3>
+        <p>${response.results[i].description}</p>
+        <a href = "${response.results[i].redirect_url}">View Details</a>
+        </div>
+      </div>`
+      var cardEL = $(card);
+      $('#job-list').append(cardEL);
+      };
+      // JSON.stringify(response.category);
+      // $(".description").text($(".category").text("category: " + category));
+      // $(".company").text("company: " + response.results[i].company);
+      // $(".location").text("location: " + location);
     });
   }
 
