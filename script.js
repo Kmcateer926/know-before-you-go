@@ -35,7 +35,12 @@ $(document).ready(function () {
   var teleportURL = "";
   var countryCode = "";
   var selectedCity = "";
-  var embedBody= ""
+  var qolEmbedBody= ""
+  var colEmbedBody= ""
+  var jobEmbedBody=""
+  var safetyEmbedBody = ""
+  var educationEmbedBody =""
+  var climateEmbedBody =""
   
   
   //On Page load, website hides the cards
@@ -116,8 +121,13 @@ $(document).ready(function () {
     }).then(function (response) {
       console.log(response);
       teleportURL = response.teleport_city_url;
-      embedBody = '<a class="teleport-widget-link" href="' + teleportURL +  '">Life quality score - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="' +teleportURL + 'widget/scores/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>';
-      console.log(embedBody)
+      qolEmbedBody = '<a class="teleport-widget-link" href="' + teleportURL +  '">Life quality score - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="' +teleportURL + 'widget/scores/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>';
+      colEmbedBody = '<a class="teleport-widget-link" href="' +teleportURL + '">Cost of living - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="' + teleportURL+ 'widget/costs/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
+      jobEmbedBody = '<a class="teleport-widget-link" href="' +teleportURL + '">Job salary calculator - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/salaries/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
+      safetyEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL +  '">Safety - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/crime/?currency=USD&citySwitcher=false" data-max-width="420" data-height="1214" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
+      educationEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL +  '">Education - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/education/?currency=USD&citySwitcher=false" data-max-width="420" data-height="1214" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
+      climateEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL +  '">Climate - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/weather/?currency=USD&citySwitcher=false" data-max-width="420" data-height="1214" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
+      console.log(qolEmbedBody)
       // // return qualityOfLife();
       // return embedBody;
       return qualityOfLife();
@@ -125,10 +135,21 @@ $(document).ready(function () {
       // return $("#qol-widget").append(embedBody)
      
     });
+    
   }
   function qualityOfLife (){
     $("#qol-widget").empty();
-    $("#qol-widget").append(embedBody);
+    $("#qol-widget").append(qolEmbedBody);
+    $("#col-widget").empty();
+    $("#col-widget").append(colEmbedBody);
+    $("#job-widget").empty();
+    $("#job-widget").append(jobEmbedBody);
+    $("#safety-widget").empty();
+    $("#safety-widget").append(safetyEmbedBody);
+    $("#education-widget").empty();
+    $("#education-widget").append(educationEmbedBody);
+    $("#climate-widget").empty();
+    $("#climate-widget").append(climateEmbedBody);
   }
 
   $("#submit").on("click", function (event) {
