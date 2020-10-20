@@ -50,6 +50,9 @@ padding: 15px;
     
 }
 
+.job-links{
+    color: greenyellow;
+}
 /* TARGETS THE BACKGROUND IMAGE */
  body {
     background-image: url("images/City.jpg"); 
