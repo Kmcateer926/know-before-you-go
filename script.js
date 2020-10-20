@@ -64,12 +64,12 @@ $(document).ready(function () {
 
       // WILL LOOP THROUGH THE JOB OPTIONS
       for (var i = 0; i < response.results.length; i++){
-        var card = `<div class="card-widget">
+        var card = `<div class="card-job-list">
         <div class="card-header" id="job-search">
-        <h2>${response.results[i].title}</h2>
+        <h5>${response.results[i].title}</h5>
         </div>
         <div class="card-body" id="job-list">
-        <h3>${response.results[i].company.display_name}</h3>
+        <h6>${response.results[i].company.display_name}</h6>
         <p>${response.results[i].description}</p>
         <a href = "${response.results[i].redirect_url}">View Details</a>
         </div>
