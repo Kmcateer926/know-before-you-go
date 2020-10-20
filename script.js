@@ -47,6 +47,7 @@ $(document).ready(function () {
     $("#job-list").empty();
    // USER INPUT FOR JOBS
     var category = $("#inputGroupSelect04").val();
+    localStorage.setItem("categoryName", category);
     queryURL =
       "https://api.adzuna.com/v1/api/jobs/" +
       countryCode +
@@ -84,6 +85,7 @@ $(document).ready(function () {
   function geoIdentify() {
     var searchCity = $("#inputGroupSelect03").val();
     console.log(searchCity);
+    localStorage.setItem("cityName", searchCity);
     selectedCity = searchCity;
     $.ajax({
       url: apiBase + searchCity,
