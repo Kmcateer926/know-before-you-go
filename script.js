@@ -73,7 +73,8 @@ $(document).ready(function () {
         <p>${response.results[i].description}</p>
         <a href = "${response.results[i].redirect_url}">View Details</a>
         </div>
-      </div>`
+      </div>
+      <br>`
       var cardEL = $(card);
      
       $('#job-list').append(cardEL);
