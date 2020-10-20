@@ -1,46 +1,99 @@
 h1 { 
-    font-size: 100 px ;
+    font-size: 3rem ;
     color:rgb(50, 50, 192);
     text-align: center;
     font-family: 'Amatic SC', cursive;
+    font-weight: bold;
+
+
 }
+/* HEADING */
 .jumbotron {
     height: 25px;
     padding-top: 15px;
-    position: -webkit-sticky; /* Required for Safari */
-  position: sticky;
+   
 }
+
 .card{
     margin: 0 auto; 
         float: none; 
         margin-bottom: 10px; 
         background-color: lightblue;
+        /* width: 35rem; */
 }
+
+/* SUBMIT YOUR CITY AND JOB CHOICES */
 #submit {
     justify-content: center;
     float: right;
+    
 }
+
+/* BACKGROUND IMAGE */
 .background{
     background-repeat: no-repeat;
     background-size: cover;
     background-position: right top;
 } 
+
+/* TARGETS THE CITY AND JOB DROPDOWN */
 .btn {
     background-color: rgb(33, 158, 199);
     color: white;
     font-family: 'Amatic SC', cursive;
 }
-/* .img {
-    position: absolute;
-} */
+
+
 .card-widget {
     background-color: lightblue;
-    font-family: 'Amatic SC', cursive;
     margin-top: 25px;
+    /* height: 100rem; */
+    
 }
-body {
+
+/* TARGETS THE BACKGROUND IMAGE */
+ body {
     background-image: url("images/City.jpg"); 
     background-repeat: no-repeat;
     background-size: cover;
-    background-attachment: fixed;
+} 
+
+/* TARGETS THE CARD */
+.card-job {
+    background-color: lightblue;
+    font-family: 'Amatic SC', cursive;
+    margin-top: 25px;
+    font-size: 15px;
+    
+}
+ /* TARGETS ALL THE HEADINGS IN THE CARDS */
+.card-header{
+    font-size: 30px;
+    font-family: 'Amatic SC', cursive;
+    font-weight: bolder;
+}
+
+/* THE CARDS WITHIN THE JOB CARD */
+.card-body-info {
+ font-size: 15px;
+}
+
+.card-body-info {
+font-size: 15px;
+}
+
+/* TARGETS ALL THE CARDS */
+.card-body {
+    font-family: 'Amatic SC', cursive;
+    font-size: 15px;
+}
+
+/* CARDS WITH IN THE JOB CARD */
+.card-job-list {
+    background-color: rgb(33, 158, 199);
+}
+
+/* LINK FOR JOBS */
+a {
+    color: blueviolet
 }
