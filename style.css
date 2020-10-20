@@ -87,6 +87,7 @@ font-size: 15px;
 .card-body {
     font-family: 'Amatic SC', cursive;
     font-size: 15px;
+    color: white;
 }
 
 /* CARDS WITH IN THE JOB CARD */
@@ -96,5 +97,5 @@ font-size: 15px;
 
 /* LINK FOR JOBS */
 a {
-    color: blueviolet
+    color: greenyellow;
 }
