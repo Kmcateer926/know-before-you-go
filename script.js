@@ -61,7 +61,12 @@ $(document).ready(function () {
       method: "GET",
     }).then(function (response) {
         console.log("This is API response: ", response.results);
-
+      var jobTitle=""
+      jobTitle=localStorage.getItem("categoryName")
+      var stringJobTitle = jobTitle.replace("-", " ")
+      //DYNAMICALLY POPULATES HEADER BASED ON JOB CATEGORY CRITERIA
+      $("#job-search").empty();
+      $("#job-search").append("AVAILABLE " + stringJobTitle+ " POSITIONS")
       // WILL LOOP THROUGH THE JOB OPTIONS
       for (var i = 0; i < response.results.length; i++){
         var card = `<div class="card-job-list">
@@ -71,7 +76,7 @@ $(document).ready(function () {
         <div class="card-body" id="job-list">
         <h6>${response.results[i].company.display_name}</h6>
         <p>${response.results[i].description}</p>
-        <a href = "${response.results[i].redirect_url}">View Details</a>
+        <a class="job-links" href = "${response.results[i].redirect_url}">View Details</a>
         </div>
       </div>
       <br>`
@@ -126,15 +131,17 @@ $(document).ready(function () {
       method: "GET",
     }).then(function (response) {
       console.log(response);
+      var cityHistory=""
+      cityHistory =localStorage.getItem("cityName").toUpperCase();
 
       // GRABS TELEPORT URL TO EMBED FOR WIDGET 
       teleportURL = response.teleport_city_url;
-      qolEmbedBody = '<a class="teleport-widget-link display-block" href="' + teleportURL +  '">Life quality score - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="' +teleportURL + 'widget/scores/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>';
-      colEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL + '">Cost of living - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="' + teleportURL+ 'widget/costs/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
-      jobEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL + '">Job salary calculator - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/salaries/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
-      safetyEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL +  '">Safety - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/crime/?currency=USD&citySwitcher=false" data-max-width="420" data-height="1214" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
-      educationEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL +  '">Education - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/education/?currency=USD&citySwitcher=false" data-max-width="420" data-height="1214" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
-      climateEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL +  '">Climate - ' + $("#inputGroupSelect03").val().toUpperCase() + '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/weather/?currency=USD&citySwitcher=false" data-max-width="420" data-height="1214" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
+      qolEmbedBody = '<a class="teleport-widget-link display-block" href="' + teleportURL +  '">Life quality score - ' + cityHistory + '</a><script async class="teleport-widget-script" data-url="' +teleportURL + 'widget/scores/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>';
+      colEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL + '">Cost of living - ' + cityHistory + '</a><script async class="teleport-widget-script" data-url="' + teleportURL+ 'widget/costs/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
+      jobEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL + '">Job salary calculator - ' +cityHistory+ '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/salaries/?currency=USD&citySwitcher=false" data-max-width="420" data-height="968" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
+      safetyEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL +  '">Safety - ' + cityHistory + '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/crime/?currency=USD&citySwitcher=false" data-max-width="420" data-height="1214" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
+      educationEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL +  '">Education - ' + cityHistory + '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/education/?currency=USD&citySwitcher=false" data-max-width="420" data-height="1214" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
+      climateEmbedBody = '<a class="teleport-widget-link display-block" href="' +teleportURL +  '">Climate - ' + cityHistory + '</a><script async class="teleport-widget-script" data-url="'+ teleportURL + 'widget/weather/?currency=USD&citySwitcher=false" data-max-width="420" data-height="1214" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>'
       return qualityOfLife();
     });
   }
@@ -143,14 +150,14 @@ $(document).ready(function () {
   function qualityOfLife (){
     $("#qol-widget").empty();
     $("#qol-widget").append(qolEmbedBody);
-    $("#col-widget").empty();
-    $("#col-widget").append(colEmbedBody);
-    $("#job-widget").empty();
-    $("#job-widget").append(jobEmbedBody);
     $("#safety-widget").empty();
     $("#safety-widget").append(safetyEmbedBody);
     $("#education-widget").empty();
     $("#education-widget").append(educationEmbedBody);
+    $("#col-widget").empty();
+    $("#col-widget").append(colEmbedBody);
+    $("#job-widget").empty();
+    $("#job-widget").append(jobEmbedBody);
     $("#climate-widget").empty();
     $("#climate-widget").append(climateEmbedBody);
   }
