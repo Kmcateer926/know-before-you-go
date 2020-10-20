@@ -160,5 +160,11 @@ $(document).ready(function () {
     event.preventDefault();
     $(".post-search").show();
     geoIdentify();
+    $(document).ajaxError(function () {
+      $("#errorModal").show();
   });
 });
+  $("#closeBtn").on("click", function (event) {
+    $("#errorModal").hide();
+});
+  });
