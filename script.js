@@ -76,7 +76,7 @@ $(document).ready(function () {
         <div class="card-body" id="job-list">
         <h6>${response.results[i].company.display_name}</h6>
         <p>${response.results[i].description}</p>
-        <a class="job-links" href = "${response.results[i].redirect_url}">View Details</a>
+        <a class="job-links" href = "${response.results[i].redirect_url}" target="_blank">View Details</a>
         </div>
       </div>
       <br>`
